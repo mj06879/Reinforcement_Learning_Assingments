@@ -130,7 +130,7 @@ def Rotationally_equivalent_generator(args):
             print(j)
         print()
 
-    return [ List_to_dict(i) for i in Rotational_equivalents]
+    return [List_to_dict(i) for i in Rotational_equivalents]
 
 def main(Table_entries):
     print("*************************** Original Table ***************************")
@@ -143,8 +143,8 @@ def main(Table_entries):
 
 
 # input = {'A2': 'x', 'B3': 'o', 'B2': 'x', 'A1': 'x', 'A3': 'o', 'B1': 'o'}
-# input = {'A2': 'x', 'B1': 'o', 'B3': 'o', 'C2': 'x'}
+input = {'A2': 'x', 'B1': 'o', 'B3': 'o', 'C2': 'x'}
 # input = {'A1': 'x', 'A2': 'o', 'B2': 'o'}
 # input = {'A1': 'o', 'A2': 'x', 'A3': 'o', 'C1': 'x', 'C2': 'o', 'C3': 'x'}
-# input = {'B2': 'x'}
+# input = {'B2': 'o'}
 main(input)
