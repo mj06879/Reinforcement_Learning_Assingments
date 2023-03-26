@@ -1,5 +1,66 @@
-import GridWorld_3_5 as Opt_V_F
+#######################################################################
+# Copyright (C)                                                       #
+# 2016-2018 Shangtong Zhang(zhangshangtong.cpp@gmail.com)             #
+# 2016 Kenta Shimada(hyperkentakun@gmail.com)                         #
+# Permission given to modify the code as long as you keep this        #
+# declaration at the top                                              #
+#######################################################################
+
 import numpy as np
+
+WORLD_SIZE = 5
+A_POS = [0, 1]
+A_PRIME_POS = [4, 1]
+B_POS = [0, 3]
+B_PRIME_POS = [2, 3]
+DISCOUNT = 0.9
+
+# left, up, right, down
+ACTIONS = [np.array([0, -1]),  # left 
+           np.array([-1, 0]),  # up
+           np.array([0, 1]),   # right
+           np.array([1, 0])]   # down
+
+def step(state, action):
+    if state == A_POS:
+        return A_PRIME_POS, 10
+    if state == B_POS:
+        return B_PRIME_POS, 5
+
+    next_state = (np.array(state) + action).tolist()
+    x, y = next_state
+    if x < 0 or x >= WORLD_SIZE or y < 0 or y >= WORLD_SIZE:
+        reward = -1.0
+        next_state = state
+    else:
+        reward = 0
+    return next_state, reward
+
+def figure_3_5():
+    value = np.zeros((WORLD_SIZE, WORLD_SIZE))
+    it = 0
+    while True:
+        # keep iteration until convergence
+        new_value = np.zeros_like(value)
+        for i in range(WORLD_SIZE):
+            for j in range(WORLD_SIZE):
+                values = []
+                for action in ACTIONS:
+                    (next_i, next_j), reward = step([i, j], action)
+                        # value iteration
+                    values.append(reward + DISCOUNT * value[next_i, next_j])
+                new_value[i, j] = np.max(values)
+        if np.sum(np.abs(new_value - value)) < 1e-2:
+            break
+        value = new_value
+        it += 1
+        # input("Press Enter to continue...")
+        np.set_printoptions(precision=2)
+        print(value)
+        print()
+    print("Converges in {} iterations".format(it))
+    return value
+
 UP = [-1, 0]
 DOWN = [1, 0]
 LEFT = [0, -1]
@@ -7,13 +68,13 @@ RIGHT = [0, 1]
 
 def Optimal_Policy(OVF):    # Optimal Value function
     policy = []
-    for i in range(Opt_V_F.WORLD_SIZE):
-        for j in range(Opt_V_F.WORLD_SIZE):
+    for i in range(WORLD_SIZE):
+        for j in range(WORLD_SIZE):
             pol = []
             temp = {}
-            for action in Opt_V_F.ACTIONS:
-                (next_i, next_j), reward = Opt_V_F.step([i, j], action)
-                a = reward + Opt_V_F.DISCOUNT * OVF[next_i, next_j]
+            for action in ACTIONS:
+                (next_i, next_j), reward = step([i, j], action)
+                a = reward + DISCOUNT * OVF[next_i, next_j]
                 # a = OVF[next_i, next_j]
                 pol.append(a)
                 if a not in temp:
@@ -42,4 +103,4 @@ def Optimal_Policy(OVF):    # Optimal Value function
         else:
             print(policy[i], end = ',')
 
-Optimal_Policy(Opt_V_F.figure_3_5())
+Optimal_Policy(figure_3_5())

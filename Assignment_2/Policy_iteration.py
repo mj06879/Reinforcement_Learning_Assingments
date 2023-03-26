@@ -1,5 +1,5 @@
 import numpy as np
-
+import random
 # np.amax() gives the maximum in array. index of maximum return by np.argmax()
 
 # To get if max at more places: np.where(VnextState === np.amax(VnextState))[0].tolist()
@@ -12,7 +12,8 @@ import numpy as np
 # value[3][0] = 'left'
 # print(value)
 
-print(19%5)
+a = random.choice(range(25))
+print(a)
 
 # ACTIONS = [np.array([0, -1]),
 #            np.array([-1, 0]),
