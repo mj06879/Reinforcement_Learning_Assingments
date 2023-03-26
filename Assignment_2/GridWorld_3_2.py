@@ -39,6 +39,7 @@ def step(state, action):
 
 def figure_3_2():
     value = np.zeros((WORLD_SIZE, WORLD_SIZE))
+    print(value)
     it = 0
     while True:
         # keep iteration until convergence
