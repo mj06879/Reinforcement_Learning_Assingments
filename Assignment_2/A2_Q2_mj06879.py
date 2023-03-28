@@ -37,7 +37,7 @@ def step(state, action):
         reward = 0
     return next_state, reward
 
-def Optimal_Value_function():   
+def Optimal_Value_function():      # upgraded figure_3_2()
     value = np.zeros((WORLD_SIZE, WORLD_SIZE))
     print(value)
     it = 0
@@ -72,8 +72,8 @@ def Optimal_Policy(OVF):    # Optimal Value function
     policy = []
     for i in range(WORLD_SIZE):
         for j in range(WORLD_SIZE):
-            pol = []
-            temp = {}
+            pol = []       # values for policy
+            temp = {}      # dictionary saving the Value function values as keys, and has value list containing actions.
             for action in ACTIONS:
                 (next_i, next_j), reward = step([i, j], action)
                 a = ACTION_PROB * (reward + DISCOUNT * OVF[next_i, next_j])

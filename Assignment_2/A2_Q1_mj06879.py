@@ -103,4 +103,5 @@ def Optimal_Policy(OVF):    # Optimal Value function
         else:
             print(policy[i], end = ',')
 
-Optimal_Policy(figure_3_5())
+if __name__ == '__main__':
+    Optimal_Policy(figure_3_5())
