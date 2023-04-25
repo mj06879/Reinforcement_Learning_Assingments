@@ -49,7 +49,6 @@ def runEpisode(state):
             episode.append(next_state)
             episodeReward.append(reward)
         state = next_state
-    return episode, episodeReward
 
 
 def Optimal_Value_function():      # upgraded figure_3_2()
