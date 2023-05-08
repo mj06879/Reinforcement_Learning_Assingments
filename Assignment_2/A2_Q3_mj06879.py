@@ -50,6 +50,48 @@ def runEpisode(state):
             episodeReward.append(reward)
         state = next_state
 
+# UP = [-1, 0]
+# DOWN = [1, 0]
+# LEFT = [0, -1]
+# RIGHT = [0, 1]
+
+def Optimal_Policy(OVF):    # Optimal Value function
+    policy = []
+    for i in range(WIDTH):
+        for j in range(HEIGHT):
+            pol = []
+            temp = {}
+            for action in ACTIONS:
+                next_state, reward = nextState(WIDTH*i + j, action)
+                a = reward + DISCOUNT * OVF[next_state]
+                # a = OVF[next_i, next_j]
+                pol.append(a)
+                if a not in temp:
+                    temp[a] = [action]
+                else:
+                    temp[a].append(action)
+            policy.append(temp[np.max(pol)])
+    print()
+    print("                ********************* Optimal Policy: ********************")
+    print()
+    policy_case = [0 for _ in range(NUM_STATES)]
+    for i in range(len(policy)):
+        # print(policy[i])
+        policy_case[i] = []
+        for j in range(len(policy[i])):
+            if policy[i][j] == -1 * HEIGHT:
+                policy_case[i].append("up")
+            elif policy[i][j] == HEIGHT:
+                policy_case[i].append("down")
+            elif policy[i][j] == -1:
+                policy_case[i].append("left")
+            elif policy[i][j] == 1:
+                policy_case[i].append("right")
+
+        if (i%5 == 4):        
+            print(policy_case[i])
+        else:
+            print(policy_case[i], end = ',')
 
 def Optimal_Value_function():      # upgraded figure_3_2()
     it = 0
@@ -74,7 +116,7 @@ def Optimal_Value_function():      # upgraded figure_3_2()
                 new_value[e[i]] = grid[e[i]] + (1/(gridCounts[e[i]] + 1))*(avgCounts[e[i]] - grid[e[i]])
                                 
                 # V_new(s) = V_old(s) + (\frac{1}{N(s)+1})*(Returns(s) - V_old(s))
-        if np.sum(np.abs(grid - new_value)) < 1e-2:
+        if np.sum(np.abs(new_value - grid)) < 1e-2:
             break
         grid = new_value
         it += 1
@@ -84,5 +126,6 @@ def Optimal_Value_function():      # upgraded figure_3_2()
         print()
     print("Converges in {} iterations".format(it))
     return grid
+    # return grid.reshape((WIDTH, HEIGHT))
         
-Optimal_Value_function()
+Optimal_Policy(Optimal_Value_function())

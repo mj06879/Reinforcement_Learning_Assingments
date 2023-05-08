@@ -50,7 +50,8 @@ def Policy_Improvement(OVF):    # Optimal Value function
             temp = {}      # dictionary saving the Value function values as keys, and has value list containing actions.
             for action in ACTIONS:
                 (next_i, next_j), reward = step([i, j], action)
-                a = ACTION_PROB * (reward + DISCOUNT * OVF[next_i, next_j])
+                # a = ACTION_PROB * (reward + DISCOUNT * OVF[next_i, next_j])
+                a = (reward + DISCOUNT * OVF[next_i, next_j])
                 pol.append(a)
                 if a not in temp:
                     temp[a] = [action]                                  # python list containing np array type.
@@ -112,7 +113,7 @@ def Policy_Iteration():      # upgraded figure_3_2()
         np.set_printoptions(precision=2)
         print()
         print(V_s)
-        new_policy = Policy_Improvement(V_s)
+        new_policy = Policy_Improvement(V_s)                # Improved polciy return 
 
         if all(np.array_equal(x, y) for x, y in zip(Policy, new_policy)):
             policy_stable = True
