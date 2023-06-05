@@ -4,7 +4,7 @@ Welcome to the Reinforcement Learning Assignments repository! This repository co
 ## Introduction
 Reinforcement Learning is a branch of machine learning that focuses on training agents to make sequential decisions in an environment to maximize a cumulative reward. This repository contains assignments that provide a pure mathematical understanding of RL algorithms by implementing them from scratch, without relying on any built-in libraries. By working on these assignments, students will gain valuable insights into the inner workings of RL algorithms.
 
-#Installation
+# Installation
 1. Install Python by downloading it from the official Python website and following the installation instructions.
 2. Install numpy
 ```shell
